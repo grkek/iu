@@ -33,6 +33,6 @@ jobs:
     - name: clone iu repository
       run: git clone https://github.com/grkek/iu.git
     - name: compile an example
-      run: cd ./iu && crystal run examples/hello_world.cr
+      run: cd ./iu && crystal run examples/control_gallery.cr
     
       
