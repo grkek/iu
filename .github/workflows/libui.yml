@@ -12,7 +12,7 @@ jobs:
     
     steps:
     - uses: actions/checkout@v2
-    - name: Set up Python
+    - name: set up python
       uses: actions/setup-python@v2
       with:
         python-version: '3.x'
@@ -32,6 +32,8 @@ jobs:
       run: cd ./libui && ninja -C build install
     - name: clone iu repository
       run: git clone https://github.com/grkek/iu.git
+    - name: install shards
+      run: cr ./iu && shards install
     - name: compile an example
       run: cd ./iu && crystal run examples/control_gallery.cr
     
