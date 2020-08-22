@@ -44,7 +44,7 @@ class WindowLayer < Iu::Abstractions::Layer
 
     # Create a on_close handle for the current window
     window.on_close = -> (window : Iu::Ui::Window){
-      self.undo(
+      self.destroy(
         *{
           window,
           args.first
