@@ -35,6 +35,6 @@ jobs:
     - name: install shards
       run: cd ./iu && shards install
     - name: compile an example
-      run: cd ./iu && crystal run examples/control_gallery.cr
+      run: cd ./iu && crystal build examples/control_gallery.cr
     
       
