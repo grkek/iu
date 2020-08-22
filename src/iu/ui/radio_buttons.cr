@@ -1,49 +1,51 @@
 require "../bindings.cr"
 require "../widget/control.cr"
 
-module Iu::Ui
-  class RadioButtons < Iu::Widget::Control
-    @@box : Void*?
+module Iu
+  module Ui
+    class RadioButtons < Iu::Widget::Control
+      @@box : Void*?
 
-    def initialize
-      @this = ui_control(UI.new_radio_buttons)
-      @id = "button-radio-#{UUID.random}"
-    end
-
-    def initialize(@this); end
-
-    def choices=(choices : Array(String))
-      choices.each do |choice|
-        UI.radio_buttons_append(to_unsafe, choice)
+      def initialize
+        @this = ui_control(UI.new_radio_buttons)
+        @id = "button-radio-#{UUID.random}"
       end
-    end
 
-    def on_select(&block : RadioButtons ->)
-      self.on_select = block
-    end
+      def initialize(@this); end
 
-    def on_select=(proc : Proc(RadioButtons, Nil))
-      boxed_data = ::Box.box(proc)
-      @@box = boxed_data
+      def choices=(choices : Array(String))
+        choices.each do |choice|
+          UI.radio_buttons_append(to_unsafe, choice)
+        end
+      end
 
-      new_proc = ->(rbuttons : RadioButtons, data : Void*) {
-        callback = ::Box(Proc(Button, Nil)).unbox(data)
-        callback.call(RadioButtons.new(rbuttons))
-      }
+      def on_select(&block : RadioButtons ->)
+        self.on_select = block
+      end
 
-      UI.radio_buttons_on_selected(to_unsafe, new_proc, boxed_data)
-    end
+      def on_select=(proc : Proc(RadioButtons, Nil))
+        boxed_data = ::Box.box(proc)
+        @@box = boxed_data
 
-    def selected : Int32
-      return UI.radio_buttons_selected(to_unsafe)
-    end
+        new_proc = ->(rbuttons : RadioButtons, data : Void*) {
+          callback = ::Box(Proc(Button, Nil)).unbox(data)
+          callback.call(RadioButtons.new(rbuttons))
+        }
 
-    def selected=(index : Int32)
-      UI.radio_buttons_set_selected(to_unsafe, index)
-    end
+        UI.radio_buttons_on_selected(to_unsafe, new_proc, boxed_data)
+      end
 
-    def to_unsafe
-      return @this.as(UI::RadioButtons*)
+      def selected : Int32
+        return UI.radio_buttons_selected(to_unsafe)
+      end
+
+      def selected=(index : Int32)
+        UI.radio_buttons_set_selected(to_unsafe, index)
+      end
+
+      def to_unsafe
+        return @this.as(UI::RadioButtons*)
+      end
     end
   end
 end

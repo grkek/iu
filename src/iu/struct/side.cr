@@ -1,8 +1,10 @@
-module Iu::Struct
-  enum Side
-    Left
-    Top
-    Right
-    Bottom
+module Iu
+  module Struct
+    enum Side
+      Left
+      Top
+      Right
+      Bottom
+    end
   end
 end
