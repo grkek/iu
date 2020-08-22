@@ -1,0 +1,15 @@
+name: iu
+version: 0.0.1
+
+authors:
+  - Hanyuan Li <completelyderp@gmail.com>
+  - Giorgi Kavrelishvili <giorgi.kavrelishvili@pm.me>
+
+dependencies:
+  stumpy_png:
+    github: stumpycr/stumpy_png
+    version: "~>4.4.1"
+
+crystal: 0.32.1
+
+license: MIT
