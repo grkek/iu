@@ -33,7 +33,7 @@ jobs:
     - name: clone iu repository
       run: git clone https://github.com/grkek/iu.git
     - name: install shards
-      run: cr ./iu && shards install
+      run: cd ./iu && shards install
     - name: compile an example
       run: cd ./iu && crystal run examples/control_gallery.cr
     
