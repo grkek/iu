@@ -28,11 +28,32 @@ require "iu"
 
 module Example
   include Iu::Components
+
+  # :nodoc:
+  class LabelLayer < Iu::Abstractions::Layer
+    property label : Label
+
+    def initialize
+      @label = Label.new(
+        "Hello, World!"
+      )
+    end
+
+    def create(**kwargs)
+      kwargs
+        .[:parent]
+        .window
+        .child=@label
+    end
+
+    def destroy(**kwargs)
+      exit(0)
+    end
+  end
   
   # :nodoc:
   class WindowLayer < Iu::Abstractions::Layer
     property window : Window
-    property label : Label
 
     def initialize
       @window = Window.new(
@@ -40,10 +61,6 @@ module Example
         800,
         600,
         true
-      )
-
-      @label = Label.new(
-        "Hello, World!"
       )
     end
 
@@ -53,7 +70,6 @@ module Example
       end
 
       @window.margined = true
-      @window.child = @label
       @window.show
     end
 
@@ -62,11 +78,16 @@ module Example
     end
   end
 
+  # :nodoc:
   class Application < Iu::Application
     def initialize_component
-      WindowLayer
-        .new
-        .create
+      window_layer =
+        WindowLayer.new
+      
+      window_layer
+        .attach(LabelLayer.new)
+        
+      window_layer.create()
     end
   end
 end
