@@ -26,13 +26,52 @@ Currently avaliable Crystal UI frameworks are either not maintained anymore or t
 ```ruby
 require "iu"
 
-class Application < Iu::Application
-  def initialize_component
-    
+module Example
+  include Iu::Components
+  
+  # :nodoc:
+  class WindowLayer < Iu::Abstractions::Layer
+    property window : Window
+    property label : Label
+
+    def initialize
+      @window = Window.new(
+        "Example",
+        800,
+        600,
+        true
+      )
+
+      @label = Label.new(
+        "Hello, World!"
+      )
+    end
+
+    def create(**kwargs)
+      @window.closing.on do
+        destroy
+      end
+
+      @window.margined = true
+      @window.child = @label
+      @window.show
+    end
+
+    def destroy(**kwargs)
+      exit(0)
+    end
+  end
+
+  class Application < Iu::Application
+    def initialize_component
+      WindowLayer
+        .new
+        .create
+    end
   end
 end
 
-app = Application.new
+app = Example::Application.new
 app.start
 ```
 
