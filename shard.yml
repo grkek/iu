@@ -1,0 +1,17 @@
+name: iu
+version: 0.1.0
+
+authors:
+  - Giorgi Kavrelishvili <giorgi.kavrelishvili@pm.me>
+
+dependencies:
+  libui:
+    github: fusion/libui.cr
+
+  cute:
+    github: Papierkorb/cute
+    branch: master
+
+crystal: 0.35.1
+
+license: MIT
