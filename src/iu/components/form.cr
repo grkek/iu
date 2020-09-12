@@ -5,7 +5,7 @@ module Iu
       include Component
       getter children : Array(Component)
 
-      def initialize
+      def initialize(@label : String)
         @form = UI.new_form
         super(@form)
         @children = [] of Component
@@ -13,7 +13,7 @@ module Iu
 
       # Appends a child to the form.
       def append(child, stretchy = false)
-        UI.form_append(@form, child, stretchy)
+        UI.form_append(@form, @label, child, stretchy)
         @children << child
       end
 
@@ -32,6 +32,11 @@ module Iu
       # Sets whether this form is padded.
       def padded=(value : Bool)
         UI.form_set_padded(@form, value)
+      end
+
+      def adopt(component : Component)
+        self.append(component)
+        self
       end
     end
   end

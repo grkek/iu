@@ -7,6 +7,7 @@ module Iu
 
       def initialize(text : String)
         @button = UI.new_button(text)
+
         super(@button)
         set_on_clicked { clicked.emit }
       end

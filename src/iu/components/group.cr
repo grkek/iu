@@ -4,9 +4,10 @@ module Iu
     class Group
       include Component
 
-      def initialize(title : String)
+      def initialize(title : String, margined : Bool = false)
         @group = UI.new_group(title)
         super(@group)
+        self.margined = margined
       end
 
       def title
@@ -27,6 +28,16 @@ module Iu
 
       def margined=(value : Bool)
         UI.group_set_margined(@group, value)
+      end
+
+      def adopt(component : Component | ReusableComponent)
+        if component.is_a?(ReusableComponent)
+          self.child = component.render
+        else
+          self.child = component
+        end
+
+        self
       end
     end
   end

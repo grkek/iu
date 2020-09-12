@@ -6,6 +6,8 @@ module Iu
       Cute.signal closing(window : Window)
       Cute.signal content_size_changed(window : Window)
 
+      property window : UI::Window*
+
       def initialize(@window : UI::Window*)
         super(@window)
       end
@@ -126,6 +128,11 @@ module Iu
         UI.window_on_content_size_changed @window, ->(window, data) {
           data.as(typeof(cb)*).value.call
         }, pointerof(@on_content_size_changed_cb)
+      end
+
+      def adopt(component : Component)
+        self.child = component
+        self
       end
     end
   end

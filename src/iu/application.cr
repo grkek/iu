@@ -1,8 +1,6 @@
 module Iu
   # :nodoc:
   class Application
-    include Iu::Abstractions::Observable(Iu::Abstractions::Observer)
-
     Cute.signal should_quit(app : Application)
 
     class_getter draw_context : Pointer(UI::DrawContext) { Pointer(UI::DrawContext).malloc(1) }

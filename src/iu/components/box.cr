@@ -32,21 +32,35 @@ module Iu
       def padded=(value : Bool)
         UI.box_set_padded(@box, value)
       end
+
+      def adopt(component : Component | ReusableComponent, stretchy : Bool = false)
+        if component.is_a?(ReusableComponent)
+          self.append(component.render, stretchy)
+        else
+          self.append(component, stretchy)
+        end
+
+        self
+      end
     end
 
     # :nodoc:
     class HorizontalBox < Box
-      def initialize
+      def initialize(padded : Bool = false)
         @box = UI.new_horizontal_box
         super(@box)
+
+        self.padded = padded
       end
     end
 
     # :nodoc:
     class VerticalBox < Box
-      def initialize
+      def initialize(padded : Bool = false)
         @box = UI.new_vertical_box
         super(@box)
+
+        self.padded = padded
       end
     end
   end

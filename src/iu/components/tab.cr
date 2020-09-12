@@ -29,12 +29,24 @@ module Iu
       end
 
       # Sets whether this tab is margined.
-      def margined=(value : Bool)
-        UI.tab_set_margined(@tab, value)
+      def margined(value : Bool, index : UInt64)
+        UI.tab_set_margined(@tab, index, value)
       end
 
       def pages
         UI.tab_num_pages(@tab)
+      end
+
+      def adopt(component : Component | ReusableComponent, title : String, margined : Bool = false)
+        if component.is_a?(ReusableComponent)
+          self.append(title, component.render)
+          self.margined(margined, self.pages - 1)
+        else
+          self.margined(margined, self.pages - 1)
+          self.append(title, component)
+        end
+
+        self
       end
     end
   end
