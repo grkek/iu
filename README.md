@@ -1,5 +1,5 @@
 # IU
-UI framework based on the [Fusion/libui.cr](https://github.com/Fusion/libui.cr) library, with custom elements and modified bindings from [hedron-crystal/hedron](https://github.com/hedron-crystal/hedron).
+UI framework based on the [Fusion/libui.cr](https://github.com/Fusion/libui.cr) library, with custom elements from [watzon/cru](https://github.com/watzon/cru).
 
 ## Motivation
 Currently avaliable Crystal UI frameworks are either not maintained anymore or the documentation is scarce and a single error might cause a developer to lose motivation, which is why I decided to build IU on top of the LibUI framework which is a multi-platform powerful UI toolkit.
@@ -21,6 +21,7 @@ Currently avaliable Crystal UI frameworks are either not maintained anymore or t
 ### Platforms
 - Mac OSX
 - Linux
+- Windows (Once crystal will be available on Windows)
 
 ## Code example
 ```ruby
