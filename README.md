@@ -29,70 +29,74 @@ require "iu"
 module Example
   include Iu::Components
 
-  # :nodoc:
-  class LabelLayer < Iu::Abstractions::Layer
-    property label : Label
+  # Ability to reuse components extracted to other classes.
+  class MyComponent < Iu::ReusableComponent
+    def initialize(@id : Int32); end
 
-    def initialize
-      @label = Label.new(
-        "Hello, World!"
-      )
-    end
-
-    def create(**kwargs)
-      kwargs
-        .[:parent]
-        .window
-        .child=@label
-    end
-
-    def destroy(**kwargs)
-      exit(0)
-    end
-  end
-  
-  # :nodoc:
-  class WindowLayer < Iu::Abstractions::Layer
-    property window : Window
-
-    def initialize
-      @window = Window.new(
-        "Example",
-        800,
-        600,
-        true
-      )
-    end
-
-    def create(**kwargs)
-      @window.closing.on do
-        destroy
-      end
-
-      @window.margined = true
-      @window.show
-    end
-
-    def destroy(**kwargs)
-      exit(0)
+    def render : Iu::Component
+      Group
+        .new(title: "MyComponent", margined: true)
+        .adopt(
+          VerticalBox
+            .new(padded: true)
+            .adopt(
+              Label.new(text: "Hello, World ##{@id}!"),
+              stretchy: true
+            )
+            .adopt(
+              Button.new(text: "Click Me!"),
+              stretchy: true
+            )
+        )
     end
   end
 
   # :nodoc:
   class Application < Iu::Application
     def initialize_component
-      window_layer =
-        WindowLayer.new
+      window =
+        Window.new(
+          title: "Example",
+          width: 800,
+          height: 600,
+          menu_bar: false
+        )
       
-      window_layer
-        .attach(LabelLayer.new)
-        
-      window_layer.create()
+      window.margined = true
+
+      window
+        .adopt(
+          HorizontalBox
+            .new(padded: true)
+            .adopt(
+              MyComponent.new(1),
+              stretchy: true
+            )
+            .adopt(
+              MyComponent.new(2),
+              stretchy: true
+            )
+            .adopt(
+              MyComponent.new(3),
+              stretchy: true
+            )
+        )
+
+      window.closing.on do
+        exit(0)
+      end
+      
+      window.show
     end
   end
 end
 
 app = Example::Application.new
+
+app.should_quit.on do
+  exit(0)
+end
+
 app.start
 ```
 
