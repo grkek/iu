@@ -1,3 +1,5 @@
+[![Control gallery](https://i.ibb.co/SNRhTmH/Control-gallery.png)](https://github.com/grkek/iu/blob/develop/examples/control_gallery.cr)
+
 # IU
 UI framework based on the [Fusion/libui.cr](https://github.com/Fusion/libui.cr) library, with custom elements from [watzon/cru](https://github.com/watzon/cru).
 
