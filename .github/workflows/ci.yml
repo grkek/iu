@@ -2,41 +2,39 @@ name: libui build and test
 
 on:
   push:
-    branches: [ develop ]
+    branches: [develop]
   pull_request:
-    branches: [ develop ]
+    branches: [develop]
   schedule:
     - cron: "0 0 * * *"
 
 jobs:
   build:
     runs-on: macos-latest
-    
+
     steps:
-    - uses: actions/checkout@v2
-    - name: set up python
-      uses: actions/setup-python@v2
-      with:
-        python-version: '3.x'
-    - name: install dependencies
-      run: python -m pip install --upgrade pip setuptools wheel
-    - name: install meson
-      run: python -m pip install meson
-    - name: install ninja
-      run: brew install ninja
-    - name: install crystal
-      run: brew install crystal
-    - name: clone libui repository
-      run: git clone https://github.com/andlabs/libui.git
-    - name: setup the build
-      run: cd ./libui && meson setup build
-    - name: build and install libui
-      run: cd ./libui && ninja -C build install
-    - name: clone iu repository
-      run: git clone https://github.com/grkek/iu.git
-    - name: install shards
-      run: cd ./iu && shards install
-    - name: compile an example
-      run: cd ./iu && crystal build examples/control_gallery.cr
-    
-      
+      - uses: actions/checkout@v2
+      - name: set up python
+        uses: actions/setup-python@v2
+        with:
+          python-version: "3.x"
+      - name: install dependencies
+        run: python -m pip install --upgrade pip setuptools wheel
+      - name: install meson
+        run: python -m pip install meson
+      - name: install ninja
+        run: brew install ninja
+      - name: install crystal
+        run: brew install crystal
+      - name: clone libui repository
+        run: git clone https://github.com/andlabs/libui.git
+      - name: setup the build
+        run: cd ./libui && meson setup build
+      - name: build and install libui
+        run: cd ./libui && ninja -C build install
+      - name: clone iu repository
+        run: git clone https://github.com/grkek/iu.git
+      - name: install shards
+        run: cd ./iu && shards install --ignore-crystal-version
+      - name: compile an example
+        run: cd ./iu && crystal build examples/control_gallery.cr

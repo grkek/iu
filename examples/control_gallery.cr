@@ -12,7 +12,7 @@ module ControlGallery
     include Iu::Components
 
     def initialize_component
-      # Menn bar for the application
+      # Menu bar for the application
       file_menu = Menu.new "File"
       open_item = file_menu.append_item "Open"
       save_item = file_menu.append_item "Save"
@@ -62,7 +62,7 @@ module ControlGallery
                     ),
                   stretchy: true
                 ),
-                stretchy: true
+              stretchy: true
             )
         )
 
