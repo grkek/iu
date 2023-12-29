@@ -45,7 +45,7 @@ module Iu
       abstract def on_mouse_event(mouse_event : UI::AreaMouseEvent)
       abstract def on_mouse_crossed(left : Bool)
       abstract def on_drag_broken
-      abstract def on_key_event(key_event : UI::AreaKeyEvent) : Int32
+      abstract def on_key_event(key_event : UI::AreaKeyEvent)
 
       def set_size(width : Int32, height : Int32)
         UI.area_set_size(@area, width, height)
