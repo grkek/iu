@@ -3,25 +3,32 @@ module Iu
     # :nodoc:
     abstract class Area
       include Component
+      
       @@on_draw_cb = Proc(UI::AreaHandler*, UI::Area*, UI::AreaDrawParams*, Nil).new { |h, a, p|
-        h.value.data.as(Area*).value.on_draw(p.value).as(Nil)
+        # h.value.data.as(Area*).value.on_draw(p.value).as(Nil)
+        ::Box(Area).unbox(h.value.data).on_draw(p.value).as(Nil)
       }
 
       @@on_mouse_event_cb = Proc(UI::AreaHandler*, UI::Area*, UI::AreaMouseEvent*, Nil).new { |h, a, e|
-        h.value.data.as(Area*).value.on_mouse_event(e.value).as(Nil)
+        # h.value.data.as(Area*).value.on_mouse_event(e.value).as(Nil)
+        ::Box(Area).unbox(h.value.data).on_mouse_event(e.value).as(Nil)
       }
 
       @@on_mouse_crossed_cb = Proc(UI::AreaHandler*, UI::Area*, LibC::Int, Nil).new { |h, a, l|
-        h.value.data.as(Area*).value.on_mouse_crossed(l.to_i > 0).as(Nil)
+        # h.value.data.as(Area*).value.on_mouse_crossed(l.to_i > 0).as(Nil)
+        ::Box(Area).unbox(h.value.data).on_mouse_crossed(l.to_i > 0).as(Nil)
       }
 
       @@on_drag_broken_cb = Proc(UI::AreaHandler*, UI::Area*, Nil).new { |h, a|
-        h.value.data.as(Area*).value.on_drag_broken.as(Nil)
+        # h.value.data.as(Area*).value.on_drag_broken.as(Nil)
+        ::Box(Area).unbox(h.value.data).on_drag_broken.as(Nil)
       }
 
       @@on_key_event_cb = Proc(UI::AreaHandler*, UI::Area*, UI::AreaKeyEvent*, Nil).new { |h, a, e|
-        h.value.data.as(Area*).value.on_key_event(e.value).as(Nil)
+        # h.value.data.as(Area*).value.on_key_event(e.value).as(Nil)
+        ::Box(Area).unbox(h.value.data).on_key_event(e.value).as(Nil)
       }
+
 
       def initialize(width = nil, height = width)
         @handler = UI::AreaHandler.new
